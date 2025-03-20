@@ -1,0 +1,186 @@
+<%- include('partials/header') %>
+
+<div class="page-wrapper">
+  <div class="page-header d-print-none">
+    <div class="container-xl">
+      <div class="row g-2 align-items-center">
+        <div class="col">
+          <h2 class="page-title">
+            Route Planning
+          </h2>
+          <div class="text-muted mt-1">Find the safest routes for petroleum tanker transportation</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="page-body">
+    <div class="container-xl">
+      <div class="row">
+        <!-- Sidebar with route controls -->
+        <div class="col-lg-4">
+          <div class="card">
+            <div class="card-body">
+              <h3 class="card-title">Route Information</h3>
+              
+              <form id="route-form" class="mt-3">
+                <div class="mb-3">
+                  <label class="form-label">Origin</label>
+                  <div class="input-group mb-2">
+                    <input type="text" id="origin-input" class="form-control" placeholder="Enter starting point">
+                    <button type="button" id="pick-origin" class="btn btn-outline-success">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-map-pin" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"></path>
+                        <path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0z"></path>
+                      </svg>
+                      Select
+                    </button>
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label">Destination</label>
+                  <div class="input-group mb-2">
+                    <input type="text" id="destination-input" class="form-control" placeholder="Enter destination">
+                    <button type="button" id="pick-destination" class="btn btn-outline-danger">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-map-pin" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"></path>
+                        <path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0z"></path>
+                      </svg>
+                      Select
+                    </button>
+                  </div>
+                </div>
+                
+                <h3 class="card-title mt-4">Tanker Specifications</h3>
+                
+                <div class="mb-3">
+                  <label class="form-label">Tanker Size</label>
+                  <select id="tanker-type" class="form-select">
+                    <option value="small">Small (10,000 L, 15 tons)</option>
+                    <option value="medium" selected>Medium (25,000 L, 30 tons)</option>
+                    <option value="large">Large (40,000 L, 45 tons)</option>
+                  </select>
+                </div>
+                
+                <div class="mb-3">
+                  <label class="form-label">Hazmat Class</label>
+                  <select id="hazmat-class" class="form-select">
+                    <option value="3">Class 3 - Flammable Liquids</option>
+                    <option value="8">Class 8 - Corrosive Substances</option>
+                    <option value="9">Class 9 - Miscellaneous Dangerous Goods</option>
+                  </select>
+                </div>
+                
+                <h3 class="card-title mt-4">Routing Preferences</h3>
+                
+                <div class="mb-3">
+                  <label class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="avoid-highways">
+                    <span class="form-check-label">Avoid Highways</span>
+                  </label>
+                </div>
+                
+                <div class="mb-3">
+                  <label class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="avoid-tolls">
+                    <span class="form-check-label">Avoid Tolls</span>
+                  </label>
+                </div>
+                
+                <div class="form-footer">
+                  <button type="submit" class="btn btn-primary w-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-route" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                      <path d="M3 19l4 -6l4 6"></path>
+                      <path d="M7 13l0 -8l4 6l4 -6l0 8"></path>
+                      <path d="M17 5l4 6l-4 6"></path>
+                    </svg>
+                    Find Safest Route
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+          
+          <!-- Route results will appear here -->
+          <div id="route-results" class="mt-3"></div>
+        </div>
+        
+        <!-- Map and details column -->
+        <div class="col-lg-8">
+          <div class="card mb-3">
+            <div class="card-body p-0" style="height: 500px;">
+              <div id="map" style="width: 100%; height: 100%;"></div>
+            </div>
+            <div class="card-footer">
+              <div class="row align-items-center">
+                <div class="col">
+                  <div class="d-flex align-items-center">
+                    <span class="legend-item me-3">
+                      <span class="badge rounded-pill bg-success me-1"></span>
+                      Safest Route
+                    </span>
+                    <span class="legend-item me-3">
+                      <span class="badge rounded-pill bg-danger me-1"></span>
+                      School Zone
+                    </span>
+                    <span class="legend-item me-3">
+                      <span class="badge rounded-pill bg-warning me-1"></span>
+                      Residential Area
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Route details will appear here -->
+          <!-- Add this in the route-details div -->
+          <div id="route-details" class="mt-3">
+              <div class="card">
+                  <div class="card-body">
+                      <h3 class="card-title">Route Details</h3>
+                      <div id="route-metrics"></div>
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Custom JS -->
+<script src="/js/main.js"></script>
+<script src="/js/mapService.js"></script>
+<script src="/js/routeService.js"></script>
+<script src="/js/metricsService.js"></script>
+<!-- Initialize Google Maps API -->
+<!-- <script>
+  // This is a placeholder for the API key
+  const API_KEY = 'AIzaSyBFAnz8XqJjFJCmNTaTPrF4_dpqWrf6Wo4';
+</script> -->
+<!-- Fix for Google Maps JavaScript API loading warning -->
+<!-- Replace the existing script tag with this one in all your HTML/EJS templates -->
+
+<!-- Place this script at the end of your body tag -->
+
+
+<!-- <script async 
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFAnz8XqJjFJCmNTaTPrF4_dpqWrf6Wo4&libraries=places,geometry,marker&callback=initMapWhenReady">
+</script> -->
+<!-- <script>
+  function initMapWhenReady() {
+    if (typeof window.initMap === 'function') {
+      window.initMap();
+    } else {
+      console.log('Waiting for initMap to be defined...');
+      setTimeout(initMapWhenReady, 100);
+    }
+  }
+</script> -->
+
+<!-- Note: The script is marked as async and uses a helper function to ensure initMap is defined -->
+<%- include('partials/footer') %>

@@ -1,0 +1,236 @@
+/* Custom styles for Oil Tanker Safety Routing */
+
+/* Route card styles */
+.route-card {
+  transition: all 0.3s ease;
+}
+
+.route-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.safest-route {
+  border-left: 4px solid #2fb344;
+}
+
+.route-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.route-metric {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+/* Map styles */
+#map {
+  width: 100%;
+  height: 100%;
+  border-radius: 3px;
+}
+
+.map-container {
+  position: relative;
+}
+
+.picking-point {
+  cursor: crosshair !important;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  font-style: italic;
+  color: #666;
+}
+
+/* Safety metrics styles */
+.safety-metrics {
+  margin-top: 1rem;
+}
+
+.safety-metric {
+  margin-bottom: 1rem;
+}
+
+.safety-label {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.25rem;
+  font-size: 0.85rem;
+}
+
+.safety-bar {
+  height: 0.5rem;
+  background-color: #e9ecef;
+  border-radius: 0.25rem;
+  overflow: hidden;
+}
+
+.safety-fill {
+  height: 100%;
+  background-color: #206bc4;
+}
+
+/* Metrics grid */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.metric-item {
+  background-color: #f8fafc;
+  padding: 0.75rem;
+  border-radius: 0.25rem;
+  border: 1px solid rgba(98, 105, 118, 0.16);
+}
+
+.metric-title {
+  font-size: 0.75rem;
+  color: #626976;
+  margin-bottom: 0.25rem;
+}
+
+.metric-value {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+/* Toast notifications */
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  max-width: 350px;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.toast-info {
+  background-color: #d1ecf1;
+  border-color: #bee5eb;
+  color: #0c5460;
+}
+
+.toast-success {
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+  color: #155724;
+}
+
+.toast-warning {
+  background-color: #fff3cd;
+  border-color: #ffeeba;
+  color: #856404;
+}
+
+.toast-error {
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  color: #721c24;
+}
+
+/* Add these styles to your CSS file */
+
+/* Custom marker styles */
+.marker-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 8px 12px;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.origin-marker {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.destination-marker {
+  background-color: #F44336;
+  color: white;
+}
+
+.current-location-marker {
+  background-color: #2196F3;
+  color: white;
+  border-radius: 50%;
+  padding: 8px;
+}
+
+.hazmat-marker {
+  background-color: #9C27B0;
+  color: white;
+}
+
+/* Map interaction styles */
+#map.picking-point {
+  cursor: crosshair;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+  font-style: italic;
+  color: #666;
+}
+
+/* Route styles */
+.route-card.safest-route {
+  border-color: #4CAF50;
+}
+
+.route-card.safest-route .card-status-top {
+  background-color: #4CAF50;
+}
+
+.route-metric {
+  display: flex;
+  align-items: center;
+  margin-right: 16px;
+}
+
+.route-metric i {
+  margin-right: 8px;
+  color: #0d6efd;
+}
+
+.safety-metrics {
+  margin-bottom: 20px;
+}
+
+.safety-metric {
+  margin-bottom: 12px;
+}
+
+.safety-label {
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+
+.safety-bar {
+  height: 8px;
+  background-color: #e9ecef;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.safety-fill {
+  height: 100%;
+  background-color: #0d6efd;
+  border-radius: 4px;
+}

@@ -1,0 +1,325 @@
+<%- include('partials/header') %>
+
+<div class="page-wrapper">
+  <div class="page-header d-print-none">
+    <div class="container-xl">
+      <div class="row g-2 align-items-center">
+        <div class="col">
+          <h2 class="page-title">
+            Dashboard
+          </h2>
+          <div class="text-muted mt-1">Safety analytics and route statistics</div>
+        </div>
+        <div class="col-auto ms-auto d-print-none">
+          <div class="d-flex">
+            <a href="/routes" class="btn btn-primary d-none d-sm-inline-block">
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-route" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M3 19l4 -6l4 6"></path>
+                <path d="M7 13l0 -8l4 6l4 -6l0 8"></path>
+                <path d="M17 5l4 6l-4 6"></path>
+              </svg>
+              Plan New Route
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="page-body">
+    <div class="container-xl">
+      <div class="row row-deck row-cards">
+        <!-- Summary stats -->
+        <div class="col-sm-6 col-lg-3">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex align-items-center">
+                <div class="subheader">Safe Routes Generated</div>
+              </div>
+              <div class="h1 mb-3">12,834</div>
+              <div class="d-flex mb-2">
+                <div>Conversion rate</div>
+                <div class="ms-auto">
+                  <span class="text-green d-inline-flex align-items-center lh-1">
+                    8% 
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon ms-1" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 17l6 -6l4 4l8 -8" /><path d="M14 7l6 0l0 6" /></svg>
+                  </span>
+                </div>
+              </div>
+              <div class="progress progress-sm">
+                <div class="progress-bar bg-primary" style="width: 75%" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" aria-label="75% Complete">
+                  <span class="visually-hidden">75% Complete</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex align-items-center">
+                <div class="subheader">Safety Score (Avg)</div>
+              </div>
+              <div class="h1 mb-3">8.2/10</div>
+              <div class="d-flex mb-2">
+                <div>Last month</div>
+                <div class="ms-auto">
+                  <span class="text-green d-inline-flex align-items-center lh-1">
+                    4% 
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon ms-1" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 17l6 -6l4 4l8 -8" /><path d="M14 7l6 0l0 6" /></svg>
+                  </span>
+                </div>
+              </div>
+              <div class="progress progress-sm">
+                <div class="progress-bar bg-success" style="width: 82%" role="progressbar" aria-valuenow="82" aria-valuemin="0" aria-valuemax="100" aria-label="82% Complete">
+                  <span class="visually-hidden">82% Complete</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex align-items-center">
+                <div class="subheader">School Zone Avoidance</div>
+              </div>
+              <div class="h1 mb-3">93.5%</div>
+              <div class="d-flex mb-2">
+                <div>Last month</div>
+                <div class="ms-auto">
+                  <span class="text-green d-inline-flex align-items-center lh-1">
+                    5% 
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon ms-1" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 17l6 -6l4 4l8 -8" /><path d="M14 7l6 0l0 6" /></svg>
+                  </span>
+                </div>
+              </div>
+              <div class="progress progress-sm">
+                <div class="progress-bar bg-primary" style="width: 93.5%" role="progressbar" aria-valuenow="93.5" aria-valuemin="0" aria-valuemax="100" aria-label="93.5% Complete">
+                  <span class="visually-hidden">93.5% Complete</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex align-items-center">
+                <div class="subheader">Avg Distance Saved</div>
+              </div>
+              <div class="h1 mb-3">12.4%</div>
+              <div class="d-flex mb-2">
+                <div>Last month</div>
+                <div class="ms-auto">
+                  <span class="text-red d-inline-flex align-items-center lh-1">
+                    -2% 
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon ms-1" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 7l6 6l4 -4l8 8" /><path d="M21 7l0 6l-6 0" /></svg>
+                  </span>
+                </div>
+              </div>
+              <div class="progress progress-sm">
+                <div class="progress-bar bg-warning" style="width: 12.4%" role="progressbar" aria-valuenow="12.4" aria-valuemin="0" aria-valuemax="100" aria-label="12.4% Complete">
+                  <span class="visually-hidden">12.4% Complete</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Safety metrics chart -->
+        <div class="col-lg-6">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Safety Metrics Over Time</h3>
+            </div>
+            <div class="card-body">
+              <div id="safety-chart" style="height: 300px;"></div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Danger zones map -->
+        <div class="col-lg-6">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Safety Hotspots</h3>
+            </div>
+            <div class="card-body">
+              <div id="hotspot-map" style="height: 300px;"></div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Recent routes -->
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Recent Routes</h3>
+            </div>
+            <div class="table-responsive">
+              <table class="table card-table table-vcenter">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Origin</th>
+                    <th>Destination</th>
+                    <th>Tanker Type</th>
+                    <th>Distance</th>
+                    <th>Safety Score</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>2025-03-18</td>
+                    <td>New York, NY</td>
+                    <td>Boston, MA</td>
+                    <td>Medium (25,000 L)</td>
+                    <td>346 km</td>
+                    <td>
+                      <div class="clearfix">
+                        <div class="float-start mt-1">
+                          <span>8.7/10</span>
+                        </div>
+                        <div class="float-end">
+                          <span class="text-success">87%</span>
+                        </div>
+                      </div>
+                      <div class="progress progress-xs">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 87%" aria-valuenow="87" aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                    </td>
+                    <td>
+                      <span class="badge bg-success">Completed</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>2025-03-17</td>
+                    <td>Chicago, IL</td>
+                    <td>Detroit, MI</td>
+                    <td>Large (40,000 L)</td>
+                    <td>452 km</td>
+                    <td>
+                      <div class="clearfix">
+                        <div class="float-start mt-1">
+                          <span>7.5/10</span>
+                        </div>
+                        <div class="float-end">
+                          <span class="text-warning">75%</span>
+                        </div>
+                      </div>
+                      <div class="progress progress-xs">
+                        <div class="progress-bar bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                    </td>
+                    <td>
+                      <span class="badge bg-success">Completed</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>2025-03-16</td>
+                    <td>Houston, TX</td>
+                    <td>Dallas, TX</td>
+                    <td>Medium (25,000 L)</td>
+                    <td>386 km</td>
+                    <td>
+                      <div class="clearfix">
+                        <div class="float-start mt-1">
+                          <span>9.2/10</span>
+                        </div>
+                        <div class="float-end">
+                          <span class="text-success">92%</span>
+                        </div>
+                      </div>
+                      <div class="progress progress-xs">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 92%" aria-valuenow="92" aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                    </td>
+                    <td>
+                      <span class="badge bg-success">Completed</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>2025-03-15</td>
+                    <td>Los Angeles, CA</td>
+                    <td>San Francisco, CA</td>
+                    <td>Large (40,000 L)</td>
+                    <td>615 km</td>
+                    <td>
+                      <div class="clearfix">
+                        <div class="float-start mt-1">
+                          <span>6.8/10</span>
+                        </div>
+                        <div class="float-end">
+                          <span class="text-danger">68%</span>
+                        </div>
+                      </div>
+                      <div class="progress progress-xs">
+                        <div class="progress-bar bg-danger" role="progressbar" style="width: 68%" aria-valuenow="68" aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                    </td>
+                    <td>
+                      <span class="badge bg-warning">In Transit</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>2025-03-14</td>
+                    <td>Phoenix, AZ</td>
+                    <td>Tucson, AZ</td>
+                    <td>Small (10,000 L)</td>
+                    <td>189 km</td>
+                    <td>
+                      <div class="clearfix">
+                        <div class="float-start mt-1">
+                          <span>8.9/10</span>
+                        </div>
+                        <div class="float-end">
+                          <span class="text-success">89%</span>
+                        </div>
+                      </div>
+                      <div class="progress progress-xs">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 89%" aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                    </td>
+                    <td>
+                      <span class="badge bg-success">Completed</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Initialize Google Maps API for the hotspot map -->
+<!-- <script>
+  // This is a placeholder for the API key
+  const API_KEY = 'AIzaSyBFAnz8XqJjFJCmNTaTPrF4_dpqWrf6Wo4';
+</script> -->
+<!-- Fix for Google Maps JavaScript API loading warning -->
+<!-- Replace the existing script tag with this one in all your HTML/EJS templates -->
+
+<!-- Place this script at the end of your body tag -->
+<!-- <script>
+  function initMapWhenReady() {
+    if (typeof window.initMap === 'function') {
+      window.initMap();
+    } else {
+      console.log('Waiting for initMap to be defined...');
+      setTimeout(initMapWhenReady, 100);
+    }
+  }
+</script> -->
+
+<!-- <script async 
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFAnz8XqJjFJCmNTaTPrF4_dpqWrf6Wo4&libraries=places,geometry,marker&callback=initMapWhenReady">
+</script> -->
+
+<!-- Note: The script is marked as async and uses a helper function to ensure initMap is defined -->
+<%- include('partials/footer') %>

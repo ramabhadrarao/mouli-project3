@@ -1,0 +1,186 @@
+<%- include('partials/header') %>
+
+<div class="page-wrapper">
+  <div class="page-header d-print-none">
+    <div class="container-xl">
+      <div class="row g-2 align-items-center">
+        <div class="col">
+          <h2 class="page-title">
+            Oil Tanker Safety Routing
+          </h2>
+          <div class="text-muted mt-1">Plan the safest routes for petroleum tanker transportation</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="page-body">
+    <div class="container-xl">
+      <div class="row row-deck row-cards">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex align-items-center">
+                <div class="subheader">Welcome to</div>
+                <div class="ms-auto lh-1">
+                  <a href="/routes" class="btn btn-primary">
+                    Get Started
+                  </a>
+                </div>
+              </div>
+              <div class="h1 mb-3">Oil Tanker Safety Routing System</div>
+              <div class="mb-2">
+                <p>This application helps transportation companies find the safest routes for their petroleum tankers, considering multiple safety factors:</p>
+              </div>
+              <div class="row">
+                <div class="col-auto d-flex align-items-center pe-2">
+                  <span class="avatar bg-azure-lt">1</span>
+                </div>
+                <div class="col">
+                  <div class="font-weight-medium">School Zone Proximity</div>
+                  <div class="text-muted">Minimizes exposure to areas with high student presence</div>
+                </div>
+              </div>
+              <div class="row mt-3">
+                <div class="col-auto d-flex align-items-center pe-2">
+                  <span class="avatar bg-azure-lt">2</span>
+                </div>
+                <div class="col">
+                  <div class="font-weight-medium">Residential Area Density</div>
+                  <div class="text-muted">Reduces risk in densely populated residential areas</div>
+                </div>
+              </div>
+              <div class="row mt-3">
+                <div class="col-auto d-flex align-items-center pe-2">
+                  <span class="avatar bg-azure-lt">3</span>
+                </div>
+                <div class="col">
+                  <div class="font-weight-medium">Road Conditions & Grade</div>
+                  <div class="text-muted">Evaluates road steepness, width constraints, and sharp turns</div>
+                </div>
+              </div>
+              <div class="row mt-3">
+                <div class="col-auto d-flex align-items-center pe-2">
+                  <span class="avatar bg-azure-lt">4</span>
+                </div>
+                <div class="col">
+                  <div class="font-weight-medium">Hazmat & Weight Restrictions</div>
+                  <div class="text-muted">Identifies routes compliant with hazardous materials regulations</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Key Features</h3>
+            </div>
+            <div class="card-body">
+              <ul class="list-unstyled space-y">
+                <li class="row">
+                  <span class="col-auto">
+                    <span class="badge bg-blue"></span>
+                  </span>
+                  <span class="col">
+                    Multiple route alternatives with comprehensive safety scoring
+                  </span>
+                </li>
+                <li class="row">
+                  <span class="col-auto">
+                    <span class="badge bg-blue"></span>
+                  </span>
+                  <span class="col">
+                    Color-coded visualization based on safety metrics
+                  </span>
+                </li>
+                <li class="row">
+                  <span class="col-auto">
+                    <span class="badge bg-blue"></span>
+                  </span>
+                  <span class="col">
+                    Detailed justification for route selection
+                  </span>
+                </li>
+                <li class="row">
+                  <span class="col-auto">
+                    <span class="badge bg-blue"></span>
+                  </span>
+                  <span class="col">
+                    Comprehensive safety analytics
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Benefits</h3>
+            </div>
+            <div class="card-body">
+              <ul class="list-unstyled space-y">
+                <li class="row">
+                  <span class="col-auto">
+                    <span class="badge bg-green"></span>
+                  </span>
+                  <span class="col">
+                    Enhanced transportation safety for hazardous materials
+                  </span>
+                </li>
+                <li class="row">
+                  <span class="col-auto">
+                    <span class="badge bg-green"></span>
+                  </span>
+                  <span class="col">
+                    Reduced risk to communities and the environment
+                  </span>
+                </li>
+                <li class="row">
+                  <span class="col-auto">
+                    <span class="badge bg-green"></span>
+                  </span>
+                  <span class="col">
+                    Improved emergency response planning
+                  </span>
+                </li>
+                <li class="row">
+                  <span class="col-auto">
+                    <span class="badge bg-green"></span>
+                  </span>
+                  <span class="col">
+                    Compliance with safety regulations and standards
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Fix for Google Maps JavaScript API loading warning -->
+<!-- Replace the existing script tag with this one in all your HTML/EJS templates -->
+
+<!-- Place this script at the end of your body tag -->
+<!-- <script>
+  function initMapWhenReady() {
+    if (typeof window.initMap === 'function') {
+      window.initMap();
+    } else {
+      console.log('Waiting for initMap to be defined...');
+      setTimeout(initMapWhenReady, 100);
+    }
+  }
+</script> -->
+
+<!-- <script async 
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFAnz8XqJjFJCmNTaTPrF4_dpqWrf6Wo4&libraries=places,geometry,marker&callback=initMapWhenReady">
+</script> -->
+
+<!-- Note: The script is marked as async and uses a helper function to ensure initMap is defined -->
+<%- include('partials/footer') %>

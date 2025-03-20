@@ -1,0 +1,14 @@
+<link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+
+<!-- Add this in the head section -->
+<script>
+    function initMap() {
+        // This will be called when Maps API is loaded
+        if (window.initMapPointSelection) {
+            window.initMapPointSelection();
+        }
+    }
+</script>
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=<%= process.env.GOOGLE_MAPS_API_KEY %>&libraries=places,geometry&callback=initMap">
+</script>

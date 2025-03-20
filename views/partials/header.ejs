@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+  <!-- Tabler CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.15.0/tabler-icons.min.css">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/css/styles.css">
+  
+  <!-- Google Maps initialization -->
+  <script>
+    // Initialize global variables
+    window.mapsLoaded = false;
+    window.mapCallbacks = [];
+  
+    // Main initialization function
+    window.initMap = async function() {
+        window.mapsLoaded = true;
+        if (typeof window.initMapPointSelection === 'function') {
+            window.initMapPointSelection();
+        }
+        // Execute any queued callbacks
+        window.mapCallbacks.forEach(callback => callback());
+    };
+  
+    // Helper function to ensure Maps API is available
+    window.withGoogleMaps = function(callback) {
+        if (window.mapsLoaded && window.google && window.google.maps) {
+            callback();
+        } else {
+            window.mapCallbacks.push(callback);
+        }
+    };
+  
+    // Initialize markers and places
+    window.initializeMarkers = function(map) {
+        window.withGoogleMaps(() => {
+            window.map = map;
+  
+            if (window.originLocation) {
+                window.originMarker = new google.maps.marker.AdvancedMarkerElement({
+                    map: map,
+                    position: window.originLocation,
+                    title: 'Origin',
+                    draggable: true
+                });
+  
+                window.originMarker.addListener('dragend', () => {
+                    window.originLocation = window.originMarker.position;
+                    document.getElementById('origin-input').value = 
+                        `${window.originLocation.lat}, ${window.originLocation.lng}`;
+                });
+            }
+            
+            if (window.destinationLocation) {
+                window.destinationMarker = new google.maps.marker.AdvancedMarkerElement({
+                    map: map,
+                    position: window.destinationLocation,
+                    title: 'Destination',
+                    draggable: true
+                });
+  
+                window.destinationMarker.addListener('dragend', () => {
+                    window.destinationLocation = window.destinationMarker.position;
+                    document.getElementById('destination-input').value = 
+                        `${window.destinationLocation.lat}, ${window.destinationLocation.lng}`;
+                });
+            }
+        });
+    };
+  
+    // Initialize Places Autocomplete
+    window.initializePlaces = function() {
+        window.withGoogleMaps(() => {
+            const originInput = document.getElementById('origin-input');
+            const destinationInput = document.getElementById('destination-input');
+  
+            if (originInput && destinationInput) {
+                const options = {
+                    componentRestrictions: { country: 'in' },
+                    fields: ['formatted_address', 'geometry', 'name'],
+                    strictBounds: false
+                };
+  
+                const originAutocomplete = new google.maps.places.Autocomplete(originInput, options);
+                const destinationAutocomplete = new google.maps.places.Autocomplete(destinationInput, options);
+  
+                originAutocomplete.addListener('place_changed', () => {
+                    const place = originAutocomplete.getPlace();
+                    if (place.geometry) {
+                        window.originLocation = place.geometry.location;
+                        originInput.value = place.formatted_address;
+                        if (window.originMarker) {
+                            window.originMarker.position = window.originLocation;
+                        } else {
+                            window.originMarker = new google.maps.marker.AdvancedMarkerElement({
+                                map: window.map,
+                                position: window.originLocation,
+                                title: 'Origin',
+                                draggable: true
+                            });
+                        }
+                    }
+                });
+  
+                destinationAutocomplete.addListener('place_changed', () => {
+                    const place = destinationAutocomplete.getPlace();
+                    if (place.geometry) {
+                        window.destinationLocation = place.geometry.location;
+                        destinationInput.value = place.formatted_address;
+                        if (window.destinationMarker) {
+                            window.destinationMarker.position = window.destinationLocation;
+                        } else {
+                            window.destinationMarker = new google.maps.marker.AdvancedMarkerElement({
+                                map: window.map,
+                                position: window.destinationLocation,
+                                title: 'Destination',
+                                draggable: true
+                            });
+                        }
+                    }
+                });
+            }
+        });
+    };
+</script>
+
+<!-- Load the Maps JavaScript API -->
+<!-- Replace the existing Google Maps script tags with this -->
+<script>
+  (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.googleapis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
+    key: "<%= process.env.GOOGLE_MAPS_API_KEY %>",
+    v: "weekly",
+    libraries: "places,geometry,marker"
+  });
+
+  async function initializeMap() {
+    try {
+      const { Map } = await google.maps.importLibrary("maps");
+      const { Places } = await google.maps.importLibrary("places");
+      const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
+      
+      window.mapsLoaded = true;
+      if (typeof window.initMapCallback === 'function') {
+        window.initMapCallback();
+      }
+      window.mapCallbacks.forEach(callback => callback());
+    } catch (error) {
+      console.error('Error initializing map:', error);
+    }
+  }
+
+  window.addEventListener('load', initializeMap);
+</script>
+
+<!-- Remove the old script tag that loads Google Maps -->
+<script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=<%= process.env.GOOGLE_MAPS_API_KEY %>&libraries=places,geometry&callback=initMap">
+</script>
+
+<!-- Add favicon -->
+<link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+</head>
+<body>
+  <div class="page">
+    <!-- Rest of the existing header content -->
+    <!-- Navbar -->
+    <header class="navbar navbar-expand-md navbar-light d-print-none">
+      <div class="container-xl">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
+          <a href="/">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-truck" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+              <path d="M7 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path>
+              <path d="M17 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path>
+              <path d="M5 17h-2v-11a1 1 0 0 1 1 -1h9v12m-4 0h6m4 0h2v-6h-8m0 -5h5l3 5"></path>
+            </svg>
+            Oil Tanker Safety
+          </a>
+        </h1>
+        <div class="navbar-nav flex-row order-md-last">
+          <div class="d-none d-md-flex">
+            <a href="?theme=dark" class="nav-link px-0 hide-theme-dark" title="Enable dark mode" data-bs-toggle="tooltip" data-bs-placement="bottom">
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" /></svg>
+            </a>
+            <a href="?theme=light" class="nav-link px-0 hide-theme-light" title="Enable light mode" data-bs-toggle="tooltip" data-bs-placement="bottom">
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" /><path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7" /></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+    <header class="navbar-expand-md">
+      <div class="collapse navbar-collapse" id="navbar-menu">
+        <div class="navbar navbar-light">
+          <div class="container-xl">
+            <ul class="navbar-nav">
+              <li class="nav-item <%= page === 'home' ? 'active' : '' %>">
+                <a class="nav-link" href="/">
+                  <span class="nav-link-icon d-md-none d-lg-inline-block">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                      <path d="M5 12l-2 0l9 -9l9 9l-2 0"></path>
+                      <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7"></path>
+                      <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6"></path>
+                    </svg>
+                  </span>
+                  <span class="nav-link-title">Home</span>
+                </a>
+              </li>
+              <li class="nav-item <%= page === 'routes' ? 'active' : '' %>">
+                <a class="nav-link" href="/routes">
+                  <span class="nav-link-icon d-md-none d-lg-inline-block">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-route" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                      <path d="M3 19l4 -6l4 6"></path>
+                      <path d="M7 13l0 -8l4 6l4 -6l0 8"></path>
+                      <path d="M17 5l4 6l-4 6"></path>
+                    </svg>
+                  </span>
+                  <span class="nav-link-title">Routes</span>
+                </a>
+              </li>
+              <li class="nav-item <%= page === 'dashboard' ? 'active' : '' %>">
+                <a class="nav-link" href="/dashboard">
+                  <span class="nav-link-icon d-md-none d-lg-inline-block">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-dashboard" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                      <path d="M12 13m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path>
+                      <path d="M13.45 11.55l2.05 -2.05"></path>
+                      <path d="M6.4 20a9 9 0 1 1 11.2 0z"></path>
+                    </svg>
+                  </span>
+                  <span class="nav-link-title">Dashboard</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
